@@ -48,7 +48,7 @@ export function Provider({children}) {
 	);
 }
 
-export default function useFlipper({id} = {}) {
+export function useFlipper({id} = {}) {
 	const fId = useMemo(() =>
 		'uf-' + (id || Math.random().toString().replace('.', ''))
 	, [id]);

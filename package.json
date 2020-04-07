@@ -1,6 +1,6 @@
 {
   "name": "use-flipper",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "build/index.js",
   "module": "build/index.mjs",
   "repository": "git@github.com:kevlened/use-flipper.git",
