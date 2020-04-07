@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "rm -rf build && NODE_ENV=production rollup -c",
+    "postbuild": "yarn --cwd example && yarn --cwd example build:static",
     "release": "git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm login && npm publish"
   },
   "devDependencies": {

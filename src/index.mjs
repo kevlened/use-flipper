@@ -3,19 +3,23 @@ import React, {
 	useCallback,
 	useState,
 	useContext,
-	useEffect
+  useEffect,
+  useRef
 } from 'react';
 
-const isServer = typeof window === 'undefined';
 const FlipperContext = React.createContext();
 
 // Attach once, to the root
 export function Provider({children}) {
-	// Render ids
-  const state = useState([]);
-  const ids = state[0];
-  const setIds = state[1];
-	
+  // Render ids
+  const [ids, setIds] = useState([]);
+
+  // Need to have stable ids to have the labels rehydrate properly
+  const count = useRef(0);
+  const nextId = useCallback(() =>
+    'use-flipper-' + count.current++
+  , [count]);
+
 	const addId = useCallback(id => setIds(prev => prev.concat([id])), [setIds]);
 	const removeId = useCallback(id => setIds(prev => {
 		const clone = prev.concat([]);
@@ -24,16 +28,16 @@ export function Provider({children}) {
 	}), [setIds]);
 
 	return (
-		<FlipperContext.Provider value={{addId, removeId}}>
+		<FlipperContext.Provider value={{addId, removeId, nextId}}>
 			{ids.map(id => (
-				<>
+				<React.Fragment key={id + '-style'}>
 					<style global jsx>{`
 						#${id} {
 							display: none;
 						}
-		
-						#${id}:not(:checked)~div #${id}-on {
-							display: none;
+            
+            #${id}:checked~div #${id}-on {
+							display: block !important;
 						}
 			
 						#${id}:checked~div #${id}-off {
@@ -41,7 +45,7 @@ export function Provider({children}) {
 						}
 					`}</style>
 					<input type='checkbox' id={id} />
-				</>
+				</React.Fragment>
 			))}
 			{children}
 		</FlipperContext.Provider>
@@ -49,27 +53,27 @@ export function Provider({children}) {
 }
 
 export function useFlipper({id} = {}) {
-	const fId = useMemo(() =>
-		'uf-' + (id || Math.random().toString().replace('.', ''))
-	, [id]);
-		
-	const {addId, removeId} = useContext(FlipperContext);
+  const {addId, removeId, nextId} = useContext(FlipperContext);
+  const fId = useMemo(() => id || nextId(), [id, nextId]);
+  
 	useEffect(() => {
 		addId(fId);
 		return () => removeId(fId);
 	}, [fId]);
 
-	const Flipper = useCallback(({children}) => isServer ? null :
-		<label for={fId}>{children}</label>
-	, [fId]);
+	const Flipper = useCallback(({children}) => (
+		<label htmlFor={fId}>{children}</label>
+  ), [fId]);
 
+  // If we don't use display: none, FlippedOn will flash on load.
+  // If we return null, React will reconcile FlippedOn as FlippedOff when we rehydrate
 	const FlippedOn = useCallback(({children}) => (
-		<div id={fId + '-on'}>{children}</div>
+    <div id={fId + '-on'} style={{display: 'none'}}>{children}</div>
 	), [fId]);
 
-	const FlippedOff = useCallback(({children}) => isServer ? null : (
+	const FlippedOff = useCallback(({children}) => (
 		<div id={fId + '-off'}>{children}</div>
-	), [fId]);
+  ), [fId]);
 
 	return {Flipper, FlippedOn, FlippedOff};
 }
