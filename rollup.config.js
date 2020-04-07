@@ -25,16 +25,17 @@ export default [{
     })
   ],
   external: id => /^react|styled-jsx/.test(id)
-}, {
-  input: pkg.module,
-  output: {
-    file: 'build/index.mjs',
-    format: 'esm'
-  },
-  plugins: [
-    babel({
-      exclude: "node_modules/**"
-    })
-  ],
-  external: id => /^react|styled-jsx/.test(id)
+// }, {
+//   input: 'src/index.mjs',
+//   output: {
+//     file: pkg.module,
+//     format: 'esm'
+//   },
+//   plugins: [
+//     babel({
+//       exclude: "node_modules/**"
+//     }),
+//     resolve()
+//   ],
+//   external: id => /^react|styled-jsx/.test(id)
 }]
