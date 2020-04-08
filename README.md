@@ -62,7 +62,7 @@ IE11+
 
 ## Limitations
 1. `Flipper` components cannot contain `input` or `button` tags
-2. For more than one `Flipper` to work without js, you must provide `defaultCount` to `Provider`
+2. For more than one `Flipper` to work without js, you must provide `count` to `Provider`
 3. Accessibility is untested
 
 
