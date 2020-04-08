@@ -9,6 +9,8 @@
     "build/",
     "src/",
     "LICENSE",
+    "next-plugin.js",
+    "webpack-plugin.js",
     "README.md"
   ],
   "scripts": {
@@ -29,7 +31,6 @@
     "styled-jsx": "^3.2.5"
   },
   "peerDependencies": {
-    "react": ">= 16.x.x",
-    "styled-jsx": ">= 3.x.x"
+    "react": "*"
   }
 }

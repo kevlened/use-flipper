@@ -6,8 +6,7 @@
     "copy": "cp ../build/index.js useFlipper.js",
     "start": "cp ../src/index.mjs useFlipper.js && next dev",
     "build:static": "yarn copy && rm -rf .next && next build && rm -rf ../docs && next export -o ../docs",
-    "build": "yarn copy && next build",
-    "start:prod": "next start"
+    "start:prod": "yarn copy && next build && next start"
   },
   "dependencies": {
     "next": "9.3.4",

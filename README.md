@@ -25,7 +25,8 @@ Most modern sites require js to be loaded, parsed and executed before use. Serve
       render() {
         const {Component, pageProps} = this.props;
         return (
-          <Provider>
+          {/* count is 1 by default */}
+          <Provider count={3}>
             <Component {...pageProps} />
           </Provider>
         );
@@ -59,7 +60,9 @@ IE11+
 
 ## Limitations
 1. `Flipper` components cannot contain `input` or `button` tags
-2. Accessibility is untested
+2. For more than one `Flipper` to work without js, you must provide `defaultCount` to `Provider`
+3. Accessibility is untested
+
 
 ## How it works
 The state of checkboxes can be queried in css. When a `label` for a checkbox is clicked, it toggles the checkbox. If you hide the checkbox, and style the `label`, you have a css-only button that can toggle the display of other dom elements.

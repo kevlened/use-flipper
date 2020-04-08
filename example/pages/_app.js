@@ -6,7 +6,7 @@ class MyApp extends App {
   render() {
     const {Component, pageProps} = this.props;
     return (
-      <Provider>
+      <Provider count={3}>
         <Component {...pageProps} />
       </Provider>
     );
