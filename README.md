@@ -12,6 +12,8 @@ Most modern sites require js to be loaded, parsed and executed before use. Serve
   * **FlippedOff** - Component renders when the flipper is clicked off
 
 ## Next.js example
+[Live preview here](https://kevlened.github.io/use-flipper)
+
 1. Add the `Provider` to the root of the app.
 
     ```js
@@ -65,7 +67,7 @@ IE11+
 
 
 ## How it works
-The state of checkboxes can be queried in css. When a `label` for a checkbox is clicked, it toggles the checkbox. If you hide the checkbox, and style the `label`, you have a css-only button that can toggle the display of other dom elements.
+The state of checkboxes can be queried in css. When a `label` for a checkbox is clicked, it toggles the checkbox. Hide the checkbox, then style the `label`, and you have a css-only button that can toggle the display of other dom elements.
 
 ## License
 MIT
