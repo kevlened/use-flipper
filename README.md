@@ -41,6 +41,8 @@ Most modern sites require js to be loaded, parsed and executed before use. Serve
 2. Add `useFlipper` where you want interactivity.
 
     ```js
+    // pages/home.js
+
     import {useFlipper} from 'use-flipper';
 
     const Home = () => {
